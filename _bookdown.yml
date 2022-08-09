@@ -1,5 +1,25 @@
-book_filename: "bookdown-demo"
+book_filename: "Avance de Tesis"
+output_dir: docs
+new_session: no
 language:
+  label:
+    fig: 'Figura '
+    tab: 'Tabla '
+    eq: 'Ecuación '
+    thm: 'Teorema '
+    lem: 'Lema '
+    def: 'Definición '
+    cor: 'Corolario '
+    prp: 'Proposición '
+    exm: 'Ejemplo '
+    exr: 'Ejercicio '
+    proof: 'Demostración. '
+    remark: 'Nota: '
+    solution: 'Solución. '
+    references: 'Referencias '
   ui:
-    chapter_name: "Chapter "
-delete_merged_file: true
+    chapter_name: 'Capítulo '
+delete_merged_file: yes
+rmd_files:
+  html: ["index.Rmd",  "m_teorico.Rmd",  "exp.Rmd",   "referencias.Rmd"]
+  latex: ["index.Rmd",  "m_teorico.Rmd", "exp.Rmd", "referencias.Rmd"]

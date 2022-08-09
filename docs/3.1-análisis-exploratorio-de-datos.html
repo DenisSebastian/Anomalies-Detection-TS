@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="3.1 Análisis Exploratorio de Datos | Avance de Tesis" />
+<meta property="og:type" content="book" />
+
+<meta property="og:description" content="Detección de Cambios" />
+<meta name="github-repo" content="rstudio/bookdown_BID_PE" />
+
+
+<meta name="date" content="2022-08-08" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="description" content="Detección de Cambios">
+
+<title>3.1 Análisis Exploratorio de Datos | Avance de Tesis</title>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+
+
+
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+/* show arrow before summary tag as in bootstrap
+TODO: remove if boostrap in updated in html_document (rmarkdown#1485) */
+details > summary {
+  display: list-item;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container-fluid main-container">
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#introducción" id="toc-introducción"><span class="toc-section-number">1</span> Introducción</a></li>
+<li><a href="2-m_teorico.html#m_teorico" id="toc-m_teorico"><span class="toc-section-number">2</span> Marco Teórico</a></li>
+<li class="has-sub"><a href="3-exp.html#exp" id="toc-exp"><span class="toc-section-number">3</span> Experimentación</a>
+<ul>
+<li><a href="3.1-análisis-exploratorio-de-datos.html#análisis-exploratorio-de-datos" id="toc-análisis-exploratorio-de-datos"><span class="toc-section-number">3.1</span> Análisis Exploratorio de Datos</a></li>
+</ul></li>
+<li><a href="4-referencias.html#referencias" id="toc-referencias"><span class="toc-section-number">4</span> Referencias</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="análisis-exploratorio-de-datos" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Análisis Exploratorio de Datos</h2>
+<p>Se recibieron dos bases de datos en formato <em>csv</em> que corresponde a registros valores NDVI <a href="3.1-análisis-exploratorio-de-datos.html#eq:ndvi">(3.1)</a> en diferentes localidades que se dividen en “<em>disturbed</em>” y “<em>no_disturbed</em>”, que cooresponde si ha sido intervenidos por acción humana. Los datos están ordendos por fecha que van de 2000-01-03 a 2022-04-29.</p>
+<p><span class="math display" id="eq:ndvi">\[\begin{equation}
+  NDVI=\frac{NIR-RED}{NIR+RED}\tag{3.1}
+\end{equation}\]</span></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
+<img src="images/descp_ndvi.jpeg" alt="Descripción de valores NDVI" width="50%" />
+<p class="caption">
+Figura 3.1: Descripción de valores NDVI
+</p>
+</div>
+<p>Para una visualización completa de las dos series de tiempo se creó una aplicación web con stramlit (librería de python)</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
+<img src="images/app_img.png" alt="Aplicación para visualizar la serie de tiempo [@berroeta_denis_aplicacion_2022]" width="100%" />
+<p class="caption">
+Figura 3.2: Aplicación para visualizar la serie de tiempo <span class="citation">(<a href="#ref-berroeta_denis_aplicacion_2022" role="doc-biblioref">Berroeta, Denis 2022</a>)</span>
+</p>
+</div>
+<iframe src="https://denissebastian-app-ts-app-5ud0c1.streamlitapp.com" height="600" width="800">
+</iframe>
+<p>Link de la aplicación web: <a href="https://denissebastian-app-ts-app-5ud0c1.streamlitapp.com">https://denissebastian-app-ts-app-5ud0c1.streamlitapp.com</a></p>
+
+</div>
+<!-- </div> -->
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-berroeta_denis_aplicacion_2022" class="csl-entry">
+Berroeta, Denis. 2022. <span>“Aplicación Visualización Series de Tiempo - <span>Streamlit</span>.”</span> Web Aplicaction. 2022. <a href="https://denissebastian-app-ts-app-5ud0c1.streamlitapp.com/">https://denissebastian-app-ts-app-5ud0c1.streamlitapp.com/</a>.
+</div>
+</div>
+<p style="text-align: center;">
+<a href="3-exp.html"><button class="btn btn-default">Previous</button></a>
+<a href="4-referencias.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+</body>
+</html>

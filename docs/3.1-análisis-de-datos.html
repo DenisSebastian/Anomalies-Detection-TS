@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="3.1 Análisis de Datos | Avance de Tesis" />
+<meta property="og:type" content="book" />
+
+<meta property="og:description" content="Detección de Cambios" />
+<meta name="github-repo" content="rstudio/bookdown_BID_PE" />
+
+
+<meta name="date" content="2022-08-08" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="description" content="Detección de Cambios">
+
+<title>3.1 Análisis de Datos | Avance de Tesis</title>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+/* show arrow before summary tag as in bootstrap
+TODO: remove if boostrap in updated in html_document (rmarkdown#1485) */
+details > summary {
+  display: list-item;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container-fluid main-container">
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#introducción" id="toc-introducción"><span class="toc-section-number">1</span> Introducción</a></li>
+<li><a href="2-m_teorico.html#m_teorico" id="toc-m_teorico"><span class="toc-section-number">2</span> Marco Teórico</a></li>
+<li class="has-sub"><a href="3-exp.html#exp" id="toc-exp"><span class="toc-section-number">3</span> Experimentación</a>
+<ul>
+<li><a href="3.1-análisis-de-datos.html#análisis-de-datos" id="toc-análisis-de-datos"><span class="toc-section-number">3.1</span> Análisis de Datos</a></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="análisis-de-datos" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Análisis de Datos</h2>
+<p>Se recibieron dos bases de datos en formato <em>csv</em> que corresponde a registros valores NDVI <a href="3.1-análisis-de-datos.html#eq:ndvi">(3.1)</a> en diferentes localidades que se dividen en “<em>disturbed</em>” y “<em>no_disturbed</em>”, que cooresponde si ha sido intervenidos por acción humana. Los datos están ordendos por fecha que van de 2000-01-03 a 2022-04-29.</p>
+<p><span class="math display" id="eq:ndvi">\[\begin{equation}
+  NDVI=\frac{NIR-RED}{NIR+RED}\tag{3.1}
+\end{equation}\]</span></p>
+<div class="figure">
+<img src="images/descp_ndvi.jpeg" style="width:50.0%" alt="" />
+<p class="caption">Descripción de valores NDVI</p>
+</div>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
+<img src="images/descp_ndvi.jpeg" alt="A nice image." width="50%" />
+<p class="caption">
+Figura 3.1: A nice image.
+</p>
+</div>
+<p>Para una visualización completa de las dos series de tiempo se creó una aplicación web con</p>
+<div class="figure">
+<img src="images/app_img.png" alt="" />
+<p class="caption">Aplicación para visualizar la serie de tiempo</p>
+</div>
+<p>Link de la aplicación web: <a href="https://denissebastian-app-ts-app-5ud0c1.streamlitapp.com">https://denissebastian-app-ts-app-5ud0c1.streamlitapp.com</a></p>
+
+</div>
+<!-- </div> -->
+<p style="text-align: center;">
+<a href="3-exp.html"><button class="btn btn-default">Previous</button></a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+</body>
+</html>

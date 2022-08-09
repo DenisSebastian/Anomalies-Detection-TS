@@ -1,0 +1,8 @@
+eq:ndvi
+fig:unnamed-chunk-2
+fig:unnamed-chunk-3
+introducción
+m_teorico
+exp
+análisis-exploratorio-de-datos
+referencias
