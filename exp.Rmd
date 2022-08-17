@@ -1,31 +1,7 @@
 # Experimentación {#exp}
 
 
-## Análisis Exploratorio de Datos
-
-Se recibieron dos bases de datos en formato _csv_ que corresponde a registros valores NDVI \@ref(eq:ndvi) en diferentes localidades que se dividen en "*disturbed*" y "*no_disturbed*", que cooresponde si ha sido intervenidos por acción humana. Los datos están ordendos por fecha que van de 2000-01-03 a 2022-04-29.
+En este capítulo se expondrá todos los experimentos con su respectiva documentación, representado en un subtítulo aparte. A continuación se señalan experimentos realizados:
 
 
-\begin{equation}
-  NDVI=\frac{NIR-RED}{NIR+RED}(\#eq:ndvi)
-\end{equation}
-
-
-```{r, echo=FALSE, out.width="50%", fig.align='center', fig.cap="Descripción de valores NDVI"}
-knitr::include_graphics("images/descp_ndvi.jpeg")
-
-```
-
-Para una visualización completa de las dos series de tiempo se creó una aplicación web con stramlit (librería de python)
-
-```{r, echo=FALSE, out.width="100%", fig.align='center', fig.cap="Aplicación para visualizar la serie de tiempo [@berroeta_denis_aplicacion_2022]"}
-knitr::include_graphics("images/app_img.png")
-
-```
-
-
-Link de la aplicación web: [https://denissebastian-app-ts-app-5ud0c1.streamlitapp.com](https://denissebastian-app-ts-app-5ud0c1.streamlitapp.com)
-
-
-
-
+- [rHarmonics] \@ref(rHarmonics)

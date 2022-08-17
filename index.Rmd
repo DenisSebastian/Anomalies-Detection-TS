@@ -8,7 +8,7 @@ logo: images/LogoUAI.JPG
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
-bibliography: [book.bib, packages.bib]
+bibliography: [book.bib, packages.bib, references.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: rstudio/bookdown_BID_PE
@@ -26,4 +26,7 @@ title.innerHTML = '<img src="images/LogoUAI.JPG" width="350">' + title.innerHTML
 ```
 
 
-Este documento tiene la única finlaidad de ir registrando los avances de tesis, conservando la estructura de un documento.
+Este documento tiene la única finalidad de ir registrando los avances de tesis, conservando la estructura de un documento.
+
+
+En desarrollo...

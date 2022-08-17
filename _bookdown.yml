@@ -1,6 +1,9 @@
 book_filename: "Avance de Tesis"
 output_dir: docs
 new_session: no
+# bibliography: [book.bib, packages.bib, references.lib]
+biblio-style: "apalike"
+link-citations: true
 language:
   label:
     fig: 'Figura '
@@ -21,5 +24,7 @@ language:
     chapter_name: 'Capítulo '
 delete_merged_file: yes
 rmd_files:
-  html: ["index.Rmd",  "m_teorico.Rmd",  "exp.Rmd",   "referencias.Rmd"]
-  latex: ["index.Rmd",  "m_teorico.Rmd", "exp.Rmd", "referencias.Rmd"]
+  html: ["index.Rmd",  "m_teorico.Rmd",  "explo.Rmd",
+  "exp.Rmd", "rHarmonics.Rmd", "referencias.Rmd"]
+  latex: ["index.Rmd",  "m_teorico.Rmd", "explo.Rmd",
+  "exp.Rmd", "rHarmonics.Rmd", "referencias.Rmd"]
