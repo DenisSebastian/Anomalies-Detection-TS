@@ -1,30 +1,254 @@
 # Exploración de Datos {#explo}
 
-
-## Exploración de Datos
-
-Se recibieron dos bases de datos en formato _csv_ que corresponde a registros valores NDVI \@ref(eq:ndvi) en diferentes localidades que se dividen en "*disturbed*" y "*no_disturbed*", que cooresponde si ha sido intervenidos por acción humana. Los datos están ordendos por fecha que van de 2000-01-03 a 2022-04-29.
-
-
-\begin{equation}
-  NDVI=\frac{NIR-RED}{NIR+RED}(\#eq:ndvi)
-\end{equation}
-
-
-```{r, echo=FALSE, out.width="50%", fig.align='center', fig.cap="Descripción de valores NDVI"}
-knitr::include_graphics("images/descp_ndvi.jpeg")
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+# lectura de librerías ----------------------------------------------------
+library(dplyr)
+library(purrr)
+library(readr)
+library(ggplot2)
+library(lubridate)
+library(plotly)
+require(knitr)
+require(kableExtra)
+library(DT)
+library(zoo)
+library(imputeTS)
 
 ```
 
+## Exploración de Datos
+
+Se recibieron dos bases de datos en formato *csv* que corresponde a registros valores NDVI \@ref(eq:ndvi) en diferentes localidades que se dividen en "*disturbed*" y "*no_disturbed*", que cooresponde si ha sido intervenidos por acción humana. Los datos están ordendos por fecha que van de 2000-01-03 a 2022-04-29.
+
+::: {#nota .greeting .message style="color: #999999; font-size :10pt"}
+**Notas:**
+
+-   Confirmar si los valores correponden valores aleatorios de una parcela o el promedio de un área de estudio.
+-   Solicitar información que tipo de área de estudio, y coordenadas para tener mayor referencia espacial.
+:::
+
+
 ## Limpieza de Datos
+
+**Librerías**
+
+```{r eval = FALSE}
+library(dplyr)
+library(purrr)
+library(readr)
+
+```
+
+**Funciones Propias**
+
+```{r}
+# función para extraer nombres de archivos sin la extensión
+extract_names <- function(path, extension = "csv", 
+                          str_delete, str_add = "f_"){
+  list.files(path = path, 
+             pattern = paste0("*.", extension, "$"), 
+             full.names = F) %>% 
+    gsub(str_delete, str_add, x = .) %>%
+    gsub(paste0("*.", extension, "$"), "", x = .) 
+}
+
+```
+
+### Estructura a Archivos *Disturbed*
+
+
+#### Lectura de todos los archivos CSV
+
+```{r message=FALSE, warning=FALSE}
+#leer todos los archivos csv con programación funcional
+disturbed <-  list.files(path = "data/raw/disturbed", 
+                         pattern = "*.csv$", full.names = T) %>% 
+  purrr::map(read_csv) %>% #leer archivos
+  purrr::map(~rename(.,  id = "...1")) # crear id
+
+```
+
+
+```{r echo=FALSE}
+
+kable_styling(
+  kable(disturbed[[1]] %>% head(10),
+        digits = 3, row.names = FALSE, align = "c",
+        caption = "Primeros 10 registros de Base 'distubed'"),
+        bootstrap_options = c("striped", "hover", "condensed"),
+        position = "center", full_width = TRUE,  font_size = 14) 
+```
+
+#### Agregar nombres a las listas
+
+```{r}
+# agregar nombres a las listas
+names_disturbed <- extract_names(path = "data/raw/disturbed/", 
+                                 str_delete = "defo_00000000000000000")
+head(names_disturbed)
+names(disturbed) <- names_disturbed
+
+```
+
+#### Agregar información de origen a la tabla de contenido
+
+```{r}
+
+disturbed <- disturbed %>%
+  names(.)%>%
+  purrr::map(~mutate(disturbed[[.]], serie = .))
+
+# combinar todo en un dataframe
+disturbed_df <- do.call(rbind, disturbed)
+```
+
+```{r echo=FALSE}
+kable_styling(
+  kable(disturbed_df %>% head(10),
+        digits = 3, row.names = FALSE, align = "c",
+        caption = "Primeros 10 registros de Base 'distubed'"),
+        bootstrap_options = c("striped", "hover", "condensed"),
+        position = "center", full_width = TRUE,  font_size = 14) 
+```
+
+
+#### Guardar los resultados en RDS
+
+```{r eval=FALSE}
+# Base completa
+saveRDS(disturbed, "data/rds/disturbed_list.rds")
+saveRDS(disturbed_df, "data/rds/disturbed_df.rds")
+```
+
+### Estructura a Archivos *non_disturbed*
+
+#### Lectura de todos los archivos CSV
+
+```{r message=FALSE, warning=FALSE}
+#leer todos los archivos csv con programación funcional
+non_disturbed <-  list.files(path = "data/raw/non-disturbed/", 
+                         pattern = "*.csv$", full.names = T) %>% 
+  purrr::map(read_csv) %>% #leer archivos
+  purrr::map(~rename(.,  id = "...1")) # crear id
+
+```
+
+
+```{r echo=FALSE}
+kable_styling(
+  kable(non_disturbed[[1]] %>% head(10),
+        digits = 3, row.names = FALSE, align = "c",
+        caption = "Primeros 10 registros de Base 'non_distubed'"),
+        bootstrap_options = c("striped", "hover", "condensed"),
+        position = "center", full_width = TRUE,  font_size = 14) 
+```
+
+#### Agregar nombres a las listas
+
+```{r}
+# agregar nombres a las listas
+names_non_disturbed <- 
+  extract_names(path = "data/raw/non-disturbed/", 
+                str_delete = "defo_00000000000000000")
+
+
+names(non_disturbed) <- names_non_disturbed
+
+head(names_non_disturbed)
+```
+
+#### Agregar información de origen a la tabla de contenido
+
+```{r}
+# no_disturbed
+non_disturbed <- non_disturbed %>%
+  names(.)%>%
+  map(~mutate(non_disturbed[[.]], serie = .))
+
+# combinar todo en un dataframe
+non_disturbed_df <- do.call(rbind, non_disturbed)
+```
+
+```{r echo=FALSE}
+kable_styling(
+  kable(non_disturbed_df %>% head(10),
+        digits = 3, row.names = FALSE, align = "c",
+        caption = "Primeros 10 registros de Base 'non_distubed'"),
+        bootstrap_options = c("striped", "hover", "condensed"),
+        position = "center", full_width = TRUE,  font_size = 14) 
+```
+
+
+
+#### Guardar los resultados en RDS
+
+```{r eval=FALSE}
+# Base completa
+saveRDS(non_disturbed, "data/rds/non_disturbed_list.rds")
+saveRDS(non_disturbed_df, "data/rds/non_disturbed_df.rds")
+```
 
 
 ## Interpolación de Datos
 
+### Lectura de Datos
 
+```{r}
+disturbed_ls <- readRDS("data/rds/disturbed_list.rds")
+no_disturbed_ls <- readRDS("data/rds/non_disturbed_list.rds")
+```
+
+### Interpolación Lineal
+
+```{r}
+# interpolación lineal ----------------------------------------------------
+disturbed_ls_i <- disturbed_ls %>% 
+  map(~mutate(., ndvi_interpolated = 
+                imputeTS::na_interpolation(ndvi, option = "linear")))
+
+no_disturbed_ls_i <- no_disturbed_ls %>% 
+  map(~mutate(., ndvi_interpolated = 
+                imputeTS::na_interpolation(ndvi, option = "linear")))
+```
+
+```{r echo=FALSE}
+kable_styling(
+  kable(disturbed_ls_i[[1]] %>% head(10),
+        digits = 3, row.names = FALSE, align = "c",
+        caption = "Primeros 10 registros de Base 'distubed' interpolado"),
+        bootstrap_options = c("striped", "hover", "condensed"),
+        position = "center", full_width = TRUE,  font_size = 14) 
+```
+
+### Guardar los Resultados
+
+```{r eval=FALSE}
+# Guardar Resultados ------------------------------------------------------
+
+# disturbed
+saveRDS(disturbed_ls_i, "data/rds/disturbed_i_list.rds") #lista
+
+disturbed_i_df <- do.call(rbind, disturbed_ls_i) #dataframe
+saveRDS(disturbed_i_df, "data/rds/disturbed_i_df.rds")
+write.csv(disturbed_i_df, "data/csv/disturbed_i_df.csv")
+
+
+# non disturbed
+saveRDS(no_disturbed_ls_i, "data/rds/non_disturbed_i_list.rds") #lista
+
+no_disturbed_i_df <- do.call(rbind, no_disturbed_ls_i) # dataframe
+saveRDS(no_disturbed_i_df, "data/rds/non_disturbed_i_df.rds")
+write.csv(no_disturbed_i_df, "data/csv/non_disturbed_i_df.csv")
+```
+
+## Visualización de áreas de estudio
+
+
+
+Por desarrollar
 
 ## Aplicación Web de visualización de series
-
 
 Para una visualización completa de las dos series de tiempo se creó una aplicación web con stramlit (librería de python)
 
@@ -33,7 +257,4 @@ knitr::include_graphics("images/app_img.png")
 
 ```
 
-
-Link de la aplicación web: [https://denissebastian-app-ts-app-5ud0c1.streamlitapp.com](https://denissebastian-app-ts-app-5ud0c1.streamlitapp.com)
-
-
+Link de la aplicación web: <https://denissebastian-app-ts-app-5ud0c1.streamlitapp.com>

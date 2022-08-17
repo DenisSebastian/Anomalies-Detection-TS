@@ -22,7 +22,7 @@
 
 
 
-<meta name="date" content="2022-08-16" />
+<meta name="date" content="2022-08-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -171,12 +171,25 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.1.1" data-path="m_teorico.html"><a href="m_teorico.html#quantifying-the-response-of-german-forests-to-drought-events-via-satellite-imagery-philipp_quantifying_2021"><i class="fa fa-check"></i><b>2.1.1</b> Quantifying the Response of German Forests to Drought Events via Satellite Imagery <span class="citation">(<span>Philipp, Wegmann, and Kübert-Flock 2021</span>)</span></a></li>
 </ul></li>
+<li class="chapter" data-level="2.2" data-path="m_teorico.html"><a href="m_teorico.html#definición-de-conceptos"><i class="fa fa-check"></i><b>2.2</b> Definición de Conceptos</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="m_teorico.html"><a href="m_teorico.html#ndvi"><i class="fa fa-check"></i><b>2.2.1</b> NDVI</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="explo.html"><a href="explo.html"><i class="fa fa-check"></i><b>3</b> Exploración de Datos</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="explo.html"><a href="explo.html#exploración-de-datos"><i class="fa fa-check"></i><b>3.1</b> Exploración de Datos</a></li>
-<li class="chapter" data-level="3.2" data-path="explo.html"><a href="explo.html#limpieza-de-datos"><i class="fa fa-check"></i><b>3.2</b> Limpieza de Datos</a></li>
-<li class="chapter" data-level="3.3" data-path="explo.html"><a href="explo.html#interpolación-de-datos"><i class="fa fa-check"></i><b>3.3</b> Interpolación de Datos</a></li>
+<li class="chapter" data-level="3.2" data-path="explo.html"><a href="explo.html#limpieza-de-datos"><i class="fa fa-check"></i><b>3.2</b> Limpieza de Datos</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="explo.html"><a href="explo.html#estructura-a-archivos-disturbed"><i class="fa fa-check"></i><b>3.2.1</b> Estructura a Archivos <em>Disturbed</em></a></li>
+<li class="chapter" data-level="3.2.2" data-path="explo.html"><a href="explo.html#estructura-a-archivos-non_disturbed"><i class="fa fa-check"></i><b>3.2.2</b> Estructura a Archivos <em>non_disturbed</em></a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="explo.html"><a href="explo.html#interpolación-de-datos"><i class="fa fa-check"></i><b>3.3</b> Interpolación de Datos</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="explo.html"><a href="explo.html#lectura-de-datos"><i class="fa fa-check"></i><b>3.3.1</b> Lectura de Datos</a></li>
+<li class="chapter" data-level="3.3.2" data-path="explo.html"><a href="explo.html#interpolación-lineal"><i class="fa fa-check"></i><b>3.3.2</b> Interpolación Lineal</a></li>
+<li class="chapter" data-level="3.3.3" data-path="explo.html"><a href="explo.html#guardar-los-resultados"><i class="fa fa-check"></i><b>3.3.3</b> Guardar los Resultados</a></li>
+</ul></li>
 <li class="chapter" data-level="3.4" data-path="explo.html"><a href="explo.html#aplicación-web-de-visualización-de-series"><i class="fa fa-check"></i><b>3.4</b> Aplicación Web de visualización de series</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="exp.html"><a href="exp.html"><i class="fa fa-check"></i><b>4</b> Experimentación</a>
@@ -212,6 +225,24 @@ div.csl-indent {
 <div id="quantifying-the-response-of-german-forests-to-drought-events-via-satellite-imagery-philipp_quantifying_2021" class="section level3 hasAnchor" number="2.1.1">
 <h3><span class="header-section-number">2.1.1</span> Quantifying the Response of German Forests to Drought Events via Satellite Imagery <span class="citation">(<a href="#ref-philipp_quantifying_2021" role="doc-biblioref">Philipp, Wegmann, and Kübert-Flock 2021</a>)</span><a href="m_teorico.html#quantifying-the-response-of-german-forests-to-drought-events-via-satellite-imagery-philipp_quantifying_2021" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Resumen</strong>: Los sistemas forestales desempeñan funciones ecosistémicas cruciales para nuestro entorno, como el equilibrio de las reservas de carbono y la influencia en el clima local, regional y mundial. La tendencia al aumento de la frecuencia de los fenómenos meteorológicos extremos inducidos por el cambio climático, incluida la sequía, supone un gran reto para la gestión forestal. En este contexto, la aplicación de los datos de teledetección proporciona un poderoso medio para realizar investigaciones rápidas, operativas y baratas a grandes escalas espaciales y temporales. Este estudio se dedicó a explorar el potencial de los datos de satélite en combinación con los <strong>análisis armónicos</strong> para cuantificar la respuesta de la vegetación a los eventos de sequía en los bosques alemanes. El método de modelización armónica se comparó con un enfoque de estandarización z-score y se correlacionó con datos meteorológicos y topográficos. Se utilizaron imágenes ópticas de satélite de Landsat y del espectrorradiómetro de imágenes de resolución moderada (MODIS) en combinación con tres índices de vegetación comúnmente aplicados. Las puntuaciones de correlación más altas basadas en la técnica de modelización armónica se <strong>calcularon para el 6º grado armónico</strong>. Las imágenes MODIS en combinación con el Índice de Vegetación de Diferencia Normalizada (NDVI) generaron los mejores resultados para medir la respuesta espectral a las condiciones de sequía. La mayor correlación entre los datos de teledetección y las medidas meteorológicas se observó en el caso de la humedad del suelo y el Índice de Severidad de la Sequía de Palmer autocalibrado (scPDSI). Además, se identificó que las regiones forestales sobre suelos arenosos con pinos como tipo de árbol dominante eran especialmente vulnerables a la sequía. Además, los análisis topográficos sugirieron que los efectos de la sequía estaban mitigados a lo largo de las laderas de las colinas. Si bien los enfoques propuestos proporcionan información valiosa sobre la dinámica de la vegetación como respuesta a las condiciones meteorológicas, se requieren mediciones in situ estandarizadas en escalas espaciales mayores y relacionadas con la cuantificación de la sequía para una evaluación de calidad más profunda de los métodos y datos utilizados.</p>
+</div>
+</div>
+<div id="definición-de-conceptos" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Definición de Conceptos<a href="m_teorico.html#definición-de-conceptos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ndvi" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> NDVI<a href="m_teorico.html#ndvi" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>por completar….</p>
+<p><span class="math display" id="eq:ndvi">\[\begin{equation}
+
+  NDVI=\frac{NIR-RED}{NIR+RED}\tag{2.1}
+
+\end{equation}\]</span></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
+<img src="images/descp_ndvi.jpeg" alt="Descripción de valores NDVI" width="50%" />
+<p class="caption">
+Figura 2.1: Descripción de valores NDVI
+</p>
+</div>
 
 </div>
 </div>

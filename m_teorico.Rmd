@@ -8,3 +8,23 @@
 
 
 **Resumen**: Los sistemas forestales desempeñan funciones ecosistémicas cruciales para nuestro entorno, como el equilibrio de las reservas de carbono y la influencia en el clima local, regional y mundial. La tendencia al aumento de la frecuencia de los fenómenos meteorológicos extremos inducidos por el cambio climático, incluida la sequía, supone un gran reto para la gestión forestal. En este contexto, la aplicación de los datos de teledetección proporciona un poderoso medio para realizar investigaciones rápidas, operativas y baratas a grandes escalas espaciales y temporales. Este estudio se dedicó a explorar el potencial de los datos de satélite en combinación con los **análisis armónicos** para cuantificar la respuesta de la vegetación a los eventos de sequía en los bosques alemanes. El método de modelización armónica se comparó con un enfoque de estandarización z-score y se correlacionó con datos meteorológicos y topográficos. Se utilizaron imágenes ópticas de satélite de Landsat y del espectrorradiómetro de imágenes de resolución moderada (MODIS) en combinación con tres índices de vegetación comúnmente aplicados. Las puntuaciones de correlación más altas basadas en la técnica de modelización armónica se **calcularon para el 6º grado armónico**. Las imágenes MODIS en combinación con el Índice de Vegetación de Diferencia Normalizada (NDVI) generaron los mejores resultados para medir la respuesta espectral a las condiciones de sequía. La mayor correlación entre los datos de teledetección y las medidas meteorológicas se observó en el caso de la humedad del suelo y el Índice de Severidad de la Sequía de Palmer autocalibrado (scPDSI). Además, se identificó que las regiones forestales sobre suelos arenosos con pinos como tipo de árbol dominante eran especialmente vulnerables a la sequía. Además, los análisis topográficos sugirieron que los efectos de la sequía estaban mitigados a lo largo de las laderas de las colinas. Si bien los enfoques propuestos proporcionan información valiosa sobre la dinámica de la vegetación como respuesta a las condiciones meteorológicas, se requieren mediciones in situ estandarizadas en escalas espaciales mayores y relacionadas con la cuantificación de la sequía para una evaluación de calidad más profunda de los métodos y datos utilizados.
+
+
+
+## Definición de Conceptos
+
+### NDVI
+
+por completar....
+
+\begin{equation}
+
+  NDVI=\frac{NIR-RED}{NIR+RED}(\#eq:ndvi)
+
+\end{equation}
+
+```{r, echo=FALSE, out.width="50%", fig.align='center', fig.cap="Descripción de valores NDVI"}
+
+knitr::include_graphics("images/descp_ndvi.jpeg")
+
+```

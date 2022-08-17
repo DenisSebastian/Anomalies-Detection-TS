@@ -92,7 +92,7 @@ ndvi_df <- disturbed_int %>% filter(serie == "f_015") %>%
 ::: {#nota .greeting .message style="color: #999999;"}
 * Confirmar si los valores correponden valores aleatorios de una parcela o el promedio de un área de estudio.
 
-* Solicitar información que tipo de área de estudio, y coordendaes para tener mayor referencia espacial.
+* Solicitar información que tipo de área de estudio, y coordenadas para tener mayor referencia espacial.
 :::
 
 **Aplicación Función `harmonics_fun()`**
