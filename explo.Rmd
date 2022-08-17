@@ -14,7 +14,8 @@ require(kableExtra)
 library(DT)
 library(zoo)
 library(imputeTS)
-
+library(sf)
+library(mapview)
 ```
 
 ## Exploración de Datos
@@ -245,8 +246,72 @@ write.csv(no_disturbed_i_df, "data/csv/non_disturbed_i_df.csv")
 ## Visualización de áreas de estudio
 
 
+### Disturbed Espacial
 
-Por desarrollar
+#### Lectura de gwf_forests.shp *Disturbed"
+
+```{r message=FALSE, warning=FALSE}
+
+#leer todos los archivos csv con programación funcional
+disturbed_sf <-  st_read("data/raw/disturbed/IWD_Deforested.shp", quiet=T)
+
+```
+
+#### Agregar Key para conectar con Series
+
+```{r}
+disturbed_sf <- disturbed_sf %>% 
+  mutate(serie = substr(id, start = (nchar(id)-2), stop = nchar(id))) %>% 
+  mutate(serie = paste0("f_", serie))
+
+```
+
+
+#### Visualización Mapa _Disturbed_
+
+```{r echo=FALSE}
+mapview(disturbed_sf, zcol= "serie", legend=F)
+```
+
+#### Guardar Objeto Espacial
+
+```{r eval=FALSE}
+saveRDS(disturbed_sf, file = "data/rds/disturbed_sf.rds")
+st_write(disturbed_sf, "data/shapes/disturbed_sf.shp", delete_dsn = T)
+```
+
+
+
+
+### Non_disturbed Espacial
+
+#### Lectura de gwf_forests.shp *Disturbed"
+
+```{r message=FALSE, warning=FALSE}
+
+#leer todos los archivos csv con programación funcional
+non_disturbed_sf <-  st_read("data/raw/non-disturbed/gwf_forests.shp", quiet=T)
+
+```
+
+#### Agregar Key para conectar con Series
+
+No se puede no tiene variable ID
+
+
+#### Visualización Mapa _Non_disturbed_
+
+```{r echo=FALSE}
+mapview(non_disturbed_sf, zcol= "deforestat", legend =F)
+```
+
+#### Guardar Objeto Espacial
+
+```{r eval=FALSE}
+saveRDS(non_disturbed_sf, file = "data/rds/non_disturbed_sf.rds")
+st_write(non_disturbed_sf, "data/shapes/non_disturbed_sf.shp", delete_dsn = T)
+```
+
 
 ## Aplicación Web de visualización de series
 

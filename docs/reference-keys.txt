@@ -5,7 +5,7 @@ tab:unnamed-chunk-10
 tab:unnamed-chunk-13
 tab:unnamed-chunk-16
 tab:unnamed-chunk-20
-fig:unnamed-chunk-22
+fig:unnamed-chunk-29
 eq:harmonic-shumway
 fig:harmonic-plot
 tab:tab-disturbed
@@ -32,6 +32,17 @@ interpolación-de-datos
 lectura-de-datos
 interpolación-lineal
 guardar-los-resultados
+visualización-de-áreas-de-estudio
+disturbed-espacial
+lectura-de-gwf_forests.shp-disturbed
+agregar-key-para-conectar-con-series
+visualización-mapa-disturbed
+guardar-objeto-espacial
+non_disturbed-espacial
+lectura-de-gwf_forests.shp-disturbed-1
+agregar-key-para-conectar-con-series-1
+visualización-mapa-non_disturbed
+guardar-objeto-espacial-1
 aplicación-web-de-visualización-de-series
 exp
 rHarmonics
