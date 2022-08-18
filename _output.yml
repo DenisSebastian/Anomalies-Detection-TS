@@ -1,5 +1,4 @@
-bookdown::html_book:
-  theme: united
+bookdown::gitbook:
   css: style.css
   fig_caption: true
   config:

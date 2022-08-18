@@ -4,4 +4,6 @@
 En este capítulo se expondrá todos los experimentos con su respectiva documentación, representado en un subtítulo aparte. A continuación se señalan experimentos realizados:
 
 
+- [npphen] \@ref(npphen)
+- [fordead] \@ref(fordead)
 - [rHarmonics] \@ref(rHarmonics)

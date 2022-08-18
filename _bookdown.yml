@@ -25,6 +25,6 @@ language:
 delete_merged_file: yes
 rmd_files:
   html: ["index.Rmd",  "m_teorico.Rmd",  "explo.Rmd",
-  "exp.Rmd", "rHarmonics.Rmd", "referencias.Rmd"]
+  "exp.Rmd",  "npphen.Rmd", "fordead.Rmd","rHarmonics.Rmd", "referencias.Rmd"]
   latex: ["index.Rmd",  "m_teorico.Rmd", "explo.Rmd",
-  "exp.Rmd", "rHarmonics.Rmd", "referencias.Rmd"]
+  "exp.Rmd", "npphen.Rmd", "fordead.Rmd","rHarmonics.Rmd", "referencias.Rmd"]

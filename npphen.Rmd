@@ -1,0 +1,156 @@
+## npphen {#npphen}
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+# lectura de librerías ----------------------------------------------------
+library(rHarmonics)
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(lubridate)
+library(plotly)
+require(knitr)
+require(kableExtra)
+library(DT)
+# library(npphen)
+
+```
+**[npphen](https://www.pucv.cl/uuaa/labgrs/proyectos/introduction-to-npphen-in-r): Introduction to npphen in R**
+
+### Antecedentes
+
+
+El paquete R npphen ha sido desarrollado principalmente para permitir la reconstrucción de la fenología de la superficie terrestre y la detección de anomalías extremas mediante el uso de series temporales de teledetección. No obstante, npphen incluye funciones para analizar cualquier tipo de serie temporal numérica. Ejemplos de series temporales de teledetección que pueden ser abordadas con npphen son diferentes series temporales (por ejemplo, NDVI, EVI, temperatura, precipitación, humedad del suelo) de diferentes conjuntos de datos como el proyecto GIMMS, el programa MODIS de EE.UU., el programa Landsat, el programa Sentinel 2 de EE.UU. o los productos CR2MET para el clima chileno. Ejemplos de series temporales numéricas pueden ser el NPP (Net Primary Productivity) de una Torre FluxNet o el GI (Green Index) de las Redes Phenocams.
+
+En este documento queremos facilitar el uso de este paquete demostrando en detalle qué hace cada una de las funciones y cómo se pueden aplicar. Para esta tarea utilizaremos un conjunto de datos de demostración de compuestos del Índice de Vegetación Mejorado (EVI) de MODIS de 16 días, aunque en general el paquete puede utilizarse para procesar una amplia gama de productos de teledetección como _Landsat_, _MODIS_, _Sentinel-2_ o _AVHRR_.
+
+
+### Experimentación
+
+
+**Instalar librería**
+
+```{r eval=FALSE}
+install.packages('npphen')
+library(npphen)
+```
+
+
+
+**Lectura de Datos**
+
+Para este ejemplo se utilizará la base de datos de los registros de NDVI, que fueron abordados en capítulo de [Exploración de Datos ] \@ref(explo). En específico se usarán los datos correspodientes a `disturbed` (intervenidos) que fueron interpolados.
+
+
+```{r }
+# Lectura de Insumos ------------------------------------------------------
+disturbed_int <- read.csv2("data/csv/disturbed_i_df.csv", sep = ",",check.names=F) %>%
+  dplyr::select(date:ncol(.)) %>%
+  mutate(date = as.Date(date))
+
+
+```
+
+```{r tab-disturbed-phen, echo=FALSE}
+  kable_styling(
+  kable(disturbed_int %>% head(10),
+        digits = 3, row.names = FALSE, align = "c",
+        caption = "Primeros 10 registros de Base 'distubed'"),
+        bootstrap_options = c("striped", "hover", "condensed"),
+        position = "center", full_width = TRUE,  font_size = 14) 
+
+
+```
+
+
+Los datos de la columna `ndvi_interpolated` serán los que se utilizarán para la prueba. La tabla filtrada tiene la siguiente dimensión `r dim(disturbed_int)`
+
+**Selección de una Serie**
+
+```{r}
+ndvi_df <- disturbed_int %>% filter(serie == "f_015") %>%
+  dplyr::select(date, ndvi = ndvi_interpolated) %>%
+  mutate(ndvi = as.numeric(ndvi))
+```
+
+```{r}
+ndvi_mes <- ndvi_df %>%
+  mutate(month = month(date), year = year(date)) %>%
+  group_by(year, month) %>%
+  summarise(ndvi_m = median(ndvi), .groups = "keep") %>%
+  mutate(date = as.Date(paste(year, month, "01", sep = "-")))%>%
+  as.data.frame() %>%
+  dplyr::select(date, ndvi = ndvi_m)
+```
+
+
+
+```{r echo =FALSE}
+fig <- plot_ly(ndvi_mes, type = 'scatter', mode = 'lines')%>%
+  add_trace(x = ~date, y = ~ndvi, name = 'ndvi')%>%
+  layout(showlegend = F)
+
+
+fig <- fig %>%
+  layout(
+         xaxis = list(zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff'),
+         yaxis = list(zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff'),
+         plot_bgcolor='#e5ecf6', width = 900)
+
+
+fig
+```
+
+### Fenología de la superficie terrestre (LSP) y detección de anomalías de los vectores numéricos
+
+#### Trabajar con vectores numéricos (un solo píxel): Phen
+
+La función Phen() estima el ciclo fenológico anual a partir de una serie temporal de verdor de la vegetación. Requiere la serie temporal así como las fechas de observación como vectores numéricos. El argumento h indica el hemisferio geográfico y se utiliza para definir la fecha de inicio de la estación de crecimiento. h=1 si la zona de estudio se encuentra en el hemisferio norte (estación que comienza el 1 de enero), h=2 si se encuentra en el hemisferio sur (estación que comienza el 1 de julio). El argumento frecuencia Define el número de muestras para la fenología de salida y debe ser uno de los siguientes 'diario' que da un vector de salida de longitud 365, '8 días' que da un vector de salida de longitud 46 (es decir, MOD13Q1 y MYD13Q1), 'mensual' que da un vector de salida de longitud 12, 'quincenal' que da un vector de salida de longitud 24 (es decir, GIMMS) o '16 días' (por defecto) que da un vector de salida de longitud 23 (es decir, MOD13Q1 o MYD13Q1). rge es un vector que contiene los valores mínimo y máximo de la variable de respuesta utilizada en el análisis. Sugerimos el uso de límites basados en la teoría. Por ejemplo, en el caso de MODIS NDVI o EVI, los valores van de 0 a 10.000, por lo que rge=c(0,10000). La salida es un vector numérico que contiene el valor esperado del índice de vegetación para cada fecha cuya longitud viene determinada por el argumento frecuencia. De hecho, se trata de la fenología anual esperada de una estación de crecimiento estándar, reconstruida a partir de todas las observaciones históricas disponibles.
+
+
+
+```{r}
+ndvi_df <- ndvi_mes
+PhenPix <- npphen::Phen(x=ndvi_df$ndvi, dates= as.Date(ndvi_df$date),
+                h=2, frequency ='monthly', rge=c(0, 1))
+PhenPix
+```
+
+
+```{r}
+plot(PhenPix, xlab='Days in phenological cycle', ylab='NDVI')
+```
+
+
+#### Graficar la fenología anual y su RFD: PhenKplot
+
+La función PhenKplot puede utilizarse para visualizar la distribución de frecuencia de referencia (RFD) de los valores de VI en diferentes días de las estaciones de crecimiento. La línea roja oscura se considera la curva fenológica de referencia del VI y es la salida de la función Phen. Este gráfico ilustra el LSP de los píxeles específicos con más detalle que la simple función de graficación, ya que también muestra cómo el índice de vegetación varía a través del tiempo.
+
+```{r}
+npphen::PhenKplot(x=ndvi_df$ndvi, dates=as.Date(ndvi_df$date), 
+          h=2, xlab='Days in phenological cycle',
+          ylab='LANDSAT', rge=c(0, 1))
+```
+
+#### Anomaly detection using ExtremeAnom
+
+Cuando nuestro objetivo no es sólo reconstruir la fenología de la superficie terrestre, sino cartografiar los cambios de la vegetación (por ejemplo, el impacto de las infestaciones de insectos en la estructura del bosque), podemos utilizar la función ExtremeAnoma(). Primero estimará el ciclo fenológico regular utilizando un periodo de referencia (tal y como hace Phen), y luego calculará las anomalías de la fenología observada de una fecha determinada a partir de la curva de referencia (compruebe la curva roja en PhenKplot). Por lo tanto, los argumentos adicionales refp y anop definen el periodo de referencia y el periodo de cálculo de las anomalías, respectivamente. El nuevo argumento output define los valores de salida. 'both' (por defecto) devuelve tanto las anomalías como la posición de rfd juntas como un único vector numérico, 'anomalies' devuelve sólo las anomalías, 'rfd' devuelve sólo los valores de rfd (cómo de extremas son las anomalías) y 'clean' devuelve sólo las anomalías extremas, es decir, las anomalías en las que un determinado rfd es sobrepasado (por ejemplo, 0,90). Este umbral crítico lo fijan los usuarios mediante el argumento rfd. Y por último, rfd es un argumento que sólo se aplica cuando el argumento output = 'clean'. Define el percentil (de 0 a 0,99) de la distribución de frecuencias de referencia, para el cual las anomalías no se marcan como anomalías extremas. Por ejemplo, si rfd = 0,90 sólo se marcarán como anomalías extremas las que queden fuera de '0,90 rfd' (valor por defecto), mientras que el resto se despreciarán (valores NA).
+
+
+```{r}
+# Example with all anomalies detected, output='both'
+anom <- npphen::ExtremeAnom(x=ndvi_df$ndvi, dates=as.Date(ndvi_df$date),
+                    h=2, refp=c(1:220), anop=c(221:268), 
+                    rge=c(0, 1), output='both', rfd=0.90)
+
+# barplot(anom[1:47],col=ifelse(anom[1:47]>0, 'green', 'red'), names='', main='Anomalies')
+barplot(anom[49:96],col=ifelse(anom[49:96]>=90, 'red', 'grey'), names='', main='RFD', ylim=c(0, 100))
+axis(1, at=1:48, labels=names(anom)[49:96], las = 2, cex.axis = 0.6)
+abline(h=90)
+```
+
+

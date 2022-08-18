@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Capítulo 4 Experimentación | Avance de Tesis" />
+<meta property="og:type" content="book" />
+
+<meta property="og:description" content="Detección de Cambios" />
+<meta name="github-repo" content="rstudio/bookdown_BID_PE" />
+
+
+<meta name="date" content="2022-08-17" />
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="description" content="Detección de Cambios">
+
+<title>Capítulo 4 Experimentación | Avance de Tesis</title>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+
+
+
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+/* show arrow before summary tag as in bootstrap
+TODO: remove if boostrap in updated in html_document (rmarkdown#1485) */
+details > summary {
+  display: list-item;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container-fluid main-container">
+
+
+<div class="row">
+<div class="col-sm-12">
+<div id="TOC">
+<ul>
+<li><a href="index.html#introducción" id="toc-introducción"><span class="toc-section-number">1</span> Introducción</a></li>
+<li class="has-sub"><a href="2-m_teorico.html#m_teorico" id="toc-m_teorico"><span class="toc-section-number">2</span> Marco Teórico</a>
+<ul>
+<li class="has-sub"><a href="2.html#modelos-armónicos" id="toc-modelos-armónicos"><span class="toc-section-number">2.1</span> Modelos Armónicos</a>
+<ul>
+<li><a href="2.html#quantifying-the-response-of-german-forests-to-drought-events-via-satellite-imagery-philipp_quantifying_2021" id="toc-quantifying-the-response-of-german-forests-to-drought-events-via-satellite-imagery-philipp_quantifying_2021"><span class="toc-section-number">2.1.1</span> Quantifying the Response of German Forests to Drought Events via Satellite Imagery <span class="citation">(<span>Philipp, Wegmann, and Kübert-Flock 2021</span>)</span></a></li>
+</ul></li>
+<li class="has-sub"><a href="2.html#definición-de-conceptos" id="toc-definición-de-conceptos"><span class="toc-section-number">2.2</span> Definición de Conceptos</a>
+<ul>
+<li><a href="2.html#ndvi" id="toc-ndvi"><span class="toc-section-number">2.2.1</span> NDVI</a></li>
+<li><a href="2.html#forcasting-de-series-temporales" id="toc-forcasting-de-series-temporales"><span class="toc-section-number">2.2.2</span> Forcasting de series temporales</a></li>
+<li><a href="2.html#componentes-de-las-series-temporales" id="toc-componentes-de-las-series-temporales"><span class="toc-section-number">2.2.3</span> Componentes de las series temporales</a></li>
+<li><a href="2.html#métodos-de-previsión-de-series-temporales" id="toc-métodos-de-previsión-de-series-temporales"><span class="toc-section-number">2.2.4</span> Métodos de previsión de series temporales</a></li>
+</ul></li>
+</ul></li>
+<li class="has-sub"><a href="3-explo.html#explo" id="toc-explo"><span class="toc-section-number">3</span> Exploración de Datos</a>
+<ul>
+<li><a href="3.html#exploración-de-datos" id="toc-exploración-de-datos"><span class="toc-section-number">3.1</span> Exploración de Datos</a></li>
+<li class="has-sub"><a href="3.html#limpieza-de-datos" id="toc-limpieza-de-datos"><span class="toc-section-number">3.2</span> Limpieza de Datos</a>
+<ul>
+<li><a href="3.html#estructura-a-archivos-disturbed" id="toc-estructura-a-archivos-disturbed"><span class="toc-section-number">3.2.1</span> Estructura a Archivos <em>Disturbed</em></a></li>
+<li><a href="3.html#estructura-a-archivos-non_disturbed" id="toc-estructura-a-archivos-non_disturbed"><span class="toc-section-number">3.2.2</span> Estructura a Archivos <em>non_disturbed</em></a></li>
+</ul></li>
+<li class="has-sub"><a href="3.html#interpolación-de-datos" id="toc-interpolación-de-datos"><span class="toc-section-number">3.3</span> Interpolación de Datos</a>
+<ul>
+<li><a href="3.html#lectura-de-datos" id="toc-lectura-de-datos"><span class="toc-section-number">3.3.1</span> Lectura de Datos</a></li>
+<li><a href="3.html#interpolación-lineal" id="toc-interpolación-lineal"><span class="toc-section-number">3.3.2</span> Interpolación Lineal</a></li>
+<li><a href="3.html#guardar-los-resultados" id="toc-guardar-los-resultados"><span class="toc-section-number">3.3.3</span> Guardar los Resultados</a></li>
+</ul></li>
+<li class="has-sub"><a href="3.html#visualización-de-áreas-de-estudio" id="toc-visualización-de-áreas-de-estudio"><span class="toc-section-number">3.4</span> Visualización de áreas de estudio</a>
+<ul>
+<li><a href="3.html#disturbed-espacial" id="toc-disturbed-espacial"><span class="toc-section-number">3.4.1</span> Disturbed Espacial</a></li>
+<li><a href="3.html#non_disturbed-espacial" id="toc-non_disturbed-espacial"><span class="toc-section-number">3.4.2</span> Non_disturbed Espacial</a></li>
+</ul></li>
+<li><a href="3.html#aplicación-web-de-visualización-de-series" id="toc-aplicación-web-de-visualización-de-series"><span class="toc-section-number">3.5</span> Aplicación Web de visualización de series</a></li>
+</ul></li>
+<li class="has-sub"><a href="4-exp.html#exp" id="toc-exp"><span class="toc-section-number">4</span> Experimentación</a>
+<ul>
+<li class="has-sub"><a href="4.html#fordead" id="toc-fordead"><span class="toc-section-number">4.1</span> Fordead</a>
+<ul>
+<li><a href="4.html#antecedentes" id="toc-antecedentes"><span class="toc-section-number">4.1.1</span> Antecedentes</a></li>
+<li><a href="4.html#experimentación" id="toc-experimentación"><span class="toc-section-number">4.1.2</span> Experimentación</a></li>
+</ul></li>
+<li class="has-sub"><a href="4.html#rHarmonics" id="toc-rHarmonics"><span class="toc-section-number">4.2</span> rHarmonics</a>
+<ul>
+<li><a href="4.html#antecedentes-1" id="toc-antecedentes-1"><span class="toc-section-number">4.2.1</span> Antecedentes</a></li>
+<li><a href="4.html#experimentación-r-package-for-harmonic-modelling-of-time-series-data" id="toc-experimentación-r-package-for-harmonic-modelling-of-time-series-data"><span class="toc-section-number">4.2.2</span> Experimentación: R package for harmonic modelling of time-series data</a></li>
+</ul></li>
+</ul></li>
+<li><a href="5-referencias.html#referencias" id="toc-referencias"><span class="toc-section-number">5</span> Referencias</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div id="exp" class="section level1" number="4">
+<h1><span class="header-section-number">Capítulo 4</span> Experimentación</h1>
+<p>En este capítulo se expondrá todos los experimentos con su respectiva documentación, representado en un subtítulo aparte. A continuación se señalan experimentos realizados:</p>
+<ul>
+<li><a href="4.html#fordead">fordead</a> <a href="4.html#fordead">4.1</a></li>
+<li><a href="4.html#rHarmonics">rHarmonics</a> <a href="4.html#rHarmonics">4.2</a></li>
+</ul>
+<!--chapter:end:exp.Rmd-->
+</div>
+<p style="text-align: center;">
+<a href="3.html"><button class="btn btn-default">Previous</button></a>
+<a href="4.html"><button class="btn btn-default">Next</button></a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+</body>
+</html>

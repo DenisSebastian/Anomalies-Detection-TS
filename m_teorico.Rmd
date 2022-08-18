@@ -28,3 +28,51 @@ por completar....
 knitr::include_graphics("images/descp_ndvi.jpeg")
 
 ```
+
+
+
+
+### Forcasting de series temporales
+
+El Forcasting de series temporales es el método de exploración y análisis de los datos de series temporales registrados o recogidos durante un periodo de tiempo determinado. Esta técnica se utiliza para pronosticar valores y realizar predicciones futuras. No todos los datos que tienen como características valores de tiempo o de fecha pueden considerarse datos de series temporales. Cualquier dato apto para la previsión de series temporales debe consistir en observaciones a lo largo de un intervalo regular y continuo.
+
+
+### Componentes de las series temporales
+
+Para utilizar datos de series temporales y desarrollar un modelo, es necesario comprender los patrones de los datos a lo largo del tiempo. Estos patrones se clasifican en cuatro componentes, que son
+
+#### Tendencia
+
+Representa el cambio gradual de los datos de la serie temporal. El patrón de tendencia representa el crecimiento o la disminución a largo plazo.
+
+#### Nivel
+
+Se refiere a los valores de referencia de los datos de la serie si fuera una línea recta.
+
+#### Estacionalidad
+
+Representa los patrones a corto plazo que se producen en una sola unidad de tiempo y se repiten indefinidamente.
+
+#### Ruido
+
+Representa las variaciones irregulares y es puramente aleatorio. Estas fluctuaciones son imprevistas, imprevisibles y no pueden ser explicadas por el modelo.
+
+### Métodos de previsión de series temporales
+
+
+#### Modelo ARIMA
+
+ARIMA significa Media Móvil Integrada Autorregresiva. Es una combinación del modelo autorregresivo (AR) y de la media móvil (MR). La previsión del modelo AR corresponde a una combinación lineal de valores pasados de la variable. La previsión del modelo de media móvil corresponde a una combinación lineal de los errores de previsión pasados. La "I" representa los valores de los datos que se sustituyen por la diferencia entre sus valores y los valores anteriores.
+
+#### Modelo SARIMA
+
+SARIMA son las siglas de Seasonal Autoregressive Integrated Moving Average. Amplía el modelo ARIMA añadiendo una combinación lineal de valores pasados estacionales y errores de previsión.
+
+#### VAR
+
+El método de autorregresión vectorial (VAR) modela el siguiente paso de cada serie temporal utilizando un modelo AR. El modelo VAR es útil cuando se desea predecir múltiples variables de series temporales mediante un único modelo.
+
+#### LSTM
+
+La red de memoria a largo plazo o LSTM es un tipo especial de red neuronal recurrente que se ocupa de las dependencias a largo plazo. Puede recordar información de datos pasados y es capaz de aprender la dependencia del orden en problemas de predicción de secuencias.
+

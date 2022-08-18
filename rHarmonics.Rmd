@@ -3,7 +3,7 @@
 
 
 
-```{r setup, include=FALSE}
+```{r include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
 # lectura de librerías ----------------------------------------------------
 library(rHarmonics)
@@ -27,7 +27,7 @@ Para cada píxel se ajusta un modelo armónico basado en un periodo de tiempo, c
 
 Para calcular la curva armónica ajustada de una señal periódica, se calculan regresiones por mínimos cuadrados ordinarios utilizando curvas de seno y coseno acopladas sobre datos de series temporales. El algoritmo subyacente que se basa en la siguiente ecuación [@shumway_spectral_2017]
 
-<!-- $$a_1+b_1 \sin\frac{2\pi t}{T}+b_2 \cos \frac{2\pi t}{T}+b_3 \sin\frac{4\pi t}{T}+b_4 \cos\frac{4\pi t}{T}$$ -->
+
 \begin{equation}
   X_t=\beta_0+\beta_1\cdot2\pi t + \sum_{i=1}^{n}(\beta_{2i}\cdot\cos(\frac{i2\pi t}{T})\cdot \beta_{3i}\cdot\sin(\frac{i2\pi t}{T}))
   (\#eq:harmonic-shumway)
@@ -79,7 +79,7 @@ disturbed_int <- read.csv2("data/csv/disturbed_i_df.csv", sep = ",",check.names=
 
 ```
 
-Los datos de la columna `ndvi_interpolated` seràn los que se utilizarán para la prueba. La tabla filtrada tiene la siguiente dimensión `r dim(disturbed_int)`
+Los datos de la columna `ndvi_interpolated` serán los que se utilizarán para la prueba. La tabla filtrada tiene la siguiente dimensión `r dim(disturbed_int)`
 
 **Selección de una Serie**
 
