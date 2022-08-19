@@ -15,10 +15,3 @@ pre {
 pre code {
   white-space: inherit;
 }
-.logo_style {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 10px;
-  width: 70%;
-}
